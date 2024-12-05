@@ -57,18 +57,19 @@ Route::post('cocktails', function (Request $request) {
     // ]);
 
     // Crear un nuevo registro en la base de datos
-    // $cocktail = Cocktail::create([
-    //     'id' => $request->input('id'),
-    //     'nombre' => $request->input(key: 'nombre'),
-    //     'categoria' => $request->input(key: 'categoria'),
-    //     'alcoholica' => $request->input('alcoholica'),
-    //     'vaso' => $request->input('vaso'),
-    //     'instrucciones' => $request->input('instrucciones')
-    // ]);
+    $cocktail = Cocktail::create([
+        'id' => $request->input('id'),
+        'nombre' => $request->input(key: 'nombre'),
+        'categoria' => $request->input(key: 'categoria'),
+        'alcoholica' => $request->input('alcoholica'),
+        'ruta_imagen' => $request->input('imagen'),
+        'vaso' => $request->input('vaso'),
+        'instrucciones' => $request->input('instrucciones')
+    ]);
 
     // Retornar una respuesta exitosa
     return response()->json([
         'message' => 'Cóctel guardado exitosamente.',
-        'cocktail' => "ABC",
+        'cocktail' => $cocktail,
     ], 201);
 });
