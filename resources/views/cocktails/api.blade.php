@@ -44,11 +44,11 @@
             @foreach ($cocktails as $cocktail)
                 <tr>
                     <td>{{ $cocktail['id'] }}</td>
-                    <td>{{ $cocktail['name'] }}</td>
-                    <td>{{ $cocktail['category'] }}</td>
-                    <td>{{ $cocktail['alcoholic'] }}</td>
-                    <td>{{ $cocktail['glass'] }}</td>
-                    <td>{{ $cocktail['instructions'] }}</td>
+                    <td>{{ $cocktail['nombre'] }}</td>
+                    <td>{{ $cocktail['categoria'] }}</td>
+                    <td>{{ $cocktail['alcoholica'] }}</td>
+                    <td>{{ $cocktail['vaso'] }}</td>
+                    <td>{{ $cocktail['instrucciones'] }}</td>
                     <td>
                         <button class="save-btn" onclick="saveCocktail({{ json_encode($cocktail) }})">
                             💾 Save
@@ -84,10 +84,45 @@
         });
 
         function saveCocktail(cocktail) {
-            // Aquí puedes manejar la lógica para almacenar el cóctel
+            // Mostrar mensaje en consola
             console.log('Guardando cóctel:', cocktail);
-            alert('El cóctel "' + cocktail.name + '" se ha guardado.');
+
+            // Preparar datos para enviar al servidor
+            // const cocktailData = {
+            //     id: cocktail.id, // ID único del cóctel
+            //     nombre: cocktail.nombre,
+            //     categoria: cocktail.,
+            //     alcoholica: cocktail.alcoholic === "Alcoholic",
+            //     vaso: cocktail.glass,
+            //     instrucciones: cocktail.instructions,
+            //     imagen: cocktail.image || null // Agregar ruta de imagen si existe
+            // };
+
+            // Hacer solicitud POST al servidor
+            fetch('/cocktails', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify(cocktail)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al guardar el cóctel.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(`El cóctel "${data.cocktail.nombre}" se ha guardado exitosamente.`);
+                    console.log('Respuesta del servidor:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('No se pudo guardar el cóctel. Intenta de nuevo.');
+                });
         }
+
     </script>
 </body>
 

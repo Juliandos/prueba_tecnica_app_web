@@ -33,11 +33,12 @@ Route::get('/cocktails-api', function () {
             $data = $response->json()['drinks'][0]; // Leer el primer cóctel
             $cocktails[] = [
                 'id' => $data['idDrink'],
-                'name' => $data['strDrink'],
-                'category' => $data['strCategory'],
-                'alcoholic' => $data['strAlcoholic'],
-                'glass' => $data['strGlass'],
-                'instructions' => $data['strInstructions'],
+                'nombre' => $data['strDrink'],
+                'categoria' => $data['strCategory'],
+                'alcoholica' => $data['strAlcoholic'],
+                'ruta_imagen' => $data['strDrinkThumb'],
+                'vaso' => $data['strGlass'],
+                'instrucciones' => $data['strInstructions'],
             ];
         }
     }
