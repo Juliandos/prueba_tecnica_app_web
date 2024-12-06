@@ -86,14 +86,17 @@ Una vez completados los pasos de instalación, puedes acceder a la aplicación a
 
 A continuación se muestran algunas capturas de pantalla de la aplicación:
 
-1. **Pantalla de inicio de sesión**
+1. **Página de inicio**
+   ![Inicio](./docs/01-inicio.png)
+
+2. **Pantalla de inicio de sesión**
    ![Login Screen](./screenshots/login.png)
 
-2. **Vista de la lista de cocktails**
+3. **Vista de la lista de cocktails**
    ![Cocktails List](./screenshots/cocktails_list.png)
 
-3. **Formulario para agregar un nuevo cocktail**
+4. **Formulario para agregar un nuevo cocktail**
    ![Add Cocktail](./screenshots/add_cocktail.png)
 
-4. **Modal de confirmación para eliminar un cocktail**
+5. **Modal de confirmación para eliminar un cocktail**
    ![Delete Confirmation](./screenshots/delete_confirmation.png)
