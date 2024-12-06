@@ -19,8 +19,8 @@ use App\Models\Cocktail;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
 
 Route::get('/cocktails-api', function () {
     $url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
