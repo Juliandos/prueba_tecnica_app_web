@@ -17,6 +17,7 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -32,12 +33,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
+                    @auth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/cocktails-api') }}">Nuevos cocktails</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/cocktails') }}">Cocktails existentes</a>
                     </li>
+                    @endauth
                 </ul>
                 <ul class="navbar-nav">
                     @auth
@@ -152,7 +155,13 @@
                     method: 'POST',
                     data: formData,
                     success: function(response) {
-                        alert('Registro exitoso. Ahora puedes iniciar sesión.');
+                        
+                        Swal.fire({
+                            title: 'Mensaje',
+                            text: 'El registro se creó exitosamente',
+                            icon: 'success',
+                        })
+
                         $('#registerModal').modal('hide');
                         $('#registerForm')[0].reset(); // Reiniciar el formulario
                     },

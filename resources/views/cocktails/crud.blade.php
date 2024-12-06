@@ -135,31 +135,37 @@
             }
         });
 
-        // Evento submit del formulario con AJAX
         $('#editForm').on('submit', function (e) {
-            e.preventDefault(); // Prevenir el envío tradicional del formulario
-            const formData = $(this).serialize(); // Serializar los datos del formulario
-            const actionUrl = `/cocktails/${$('#editForm').data('id')}`; // Obtener URL dinámica
+            e.preventDefault();
+            const formData = $(this).serialize();
+            const actionUrl = `/cocktails/${$('#editForm').data('id')}`;
 
             $.ajax({
                 url: actionUrl,
                 type: 'PUT',
                 data: formData,
                 success: function (response) {
-                    alert('Cóctel actualizado exitosamente.');
+                    Swal.fire({
+                        title: 'Mensaje',
+                        text: 'El cocktail se actualizó exitosamente',
+                        icon: 'success',
+                    })
                     
                 },
                 error: function (error) {
                     console.error('Error al actualizar el cóctel:', error);
-                    alert('Ocurrió un error al actualizar el cóctel.');
+                    Swal.fire({
+                        title: 'Mensaje',
+                        text: 'Ocurrió un error al actualizar el cóctel',
+                        icon: 'warning',
+                    })
                 }
             });
         });
     });
 
     function openEditModal(cocktail) {
-        // Rellenar los campos del formulario con los datos del cóctel
-        $('#editForm').data('id', cocktail.id); // Guardar el ID del cóctel en el formulario
+        $('#editForm').data('id', cocktail.id);
         $('#nombre').val(cocktail.nombre);
         $('#categoria').val(cocktail.categoria);
         $('#alcoholica').val(cocktail.alcoholica ? '1' : '0');
@@ -167,7 +173,6 @@
         $('#ruta_imagen').val(cocktail.ruta_imagen);
         $('#instrucciones').val(cocktail.instrucciones);
 
-        // Abrir el modal
         $('#editModal').modal('show');
     }
 
@@ -182,11 +187,20 @@
                 if (!response.ok) {
                     throw new Error('No se pudo eliminar el cóctel.');
                 }
-                alert('Cóctel eliminado exitosamente.');
+                
+                Swal.fire({
+                    title: 'Mensaje',
+                    text: 'El cocktail se eliminó correctamente',
+                    icon: 'success',
+                })
                 cocktailsTable.row($(button).closest('tr')).remove().draw();
             }).catch(error => {
                 console.error('Error:', error);
-                alert('Ocurrió un error al eliminar el cóctel.');
+                Swal.fire({
+                        title: 'Advertencia',
+                        text: 'El cocktail no se pudo eliminar.',
+                        icon: 'warning',
+                    })
             });
         }
     }

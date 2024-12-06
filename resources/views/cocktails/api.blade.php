@@ -77,21 +77,6 @@
     });
 
     function saveCocktail(cocktail, button) {
-        // Mostrar mensaje en consola
-        console.log('Guardando cóctel:', cocktail);
-
-        // Preparar datos para enviar al servidor
-        // const cocktailData = {
-        //     id: cocktail.id, // ID único del cóctel
-        //     nombre: cocktail.nombre,
-        //     categoria: cocktail.,
-        //     alcoholica: cocktail.alcoholic === "Alcoholic",
-        //     vaso: cocktail.glass,
-        //     instrucciones: cocktail.instructions,
-        //     imagen: cocktail.image || null // Agregar ruta de imagen si existe
-        // };
-
-        // Hacer solicitud POST al servidor
         fetch('/cocktails', {
                 method: 'POST',
                 headers: {
@@ -109,10 +94,20 @@
             .then(data => {
                 const rowIndex = cockTailsTable.row($(button).closest('tr')).index();
                 cockTailsTable.row(rowIndex).remove().draw();
+
+                Swal.fire({
+                    title: 'Mensaje',
+                    text: 'El cocktail se agregó correctamente',
+                    icon: 'success',
+                })
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('No se pudo guardar el cóctel. Intenta de nuevo.');
+                Swal.fire({
+                    title: 'Advertencia',
+                    text: 'El registro no se agregó.',
+                    icon: 'warning',
+                })
             });
     }
 </script>
