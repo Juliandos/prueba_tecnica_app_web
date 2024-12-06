@@ -1,66 +1,99 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Cocktail Web Application
 
-## About Laravel
+## Introducción
+Este proyecto es una aplicación web que permite agregar y gestionar cocktails a través de una base de datos utilizando datos obtenidos de la API pública de TheCocktailDB (https://www.thecocktaildb.com/api.php). La aplicación proporciona una interfaz fácil de usar para interactuar con la API, agregar cocktails a la base de datos, y permitir la edición y eliminación de cocktails ya existentes.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Además, los usuarios pueden iniciar sesión y cerrar sesión en la plataforma para gestionar sus datos de manera segura. El sistema está optimizado para dispositivos móviles gracias al uso de Bootstrap 5.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tecnologías Usadas
+- **Laravel**: El framework backend utilizado para gestionar las rutas, controladores y la base de datos.
+- **SQLite**: Base de datos ligera utilizada para almacenar los cocktails y la información del usuario.
+- **jQuery**: Biblioteca de JavaScript utilizada para manejar la interacción asincrónica y la manipulación del DOM.
+- **DataTables**: Plugin de jQuery utilizado para gestionar y visualizar los datos en tablas de forma interactiva.
+- **SweetAlert2**: Librería para mostrar alertas y confirmaciones personalizadas de manera visualmente atractiva.
+- **Bootstrap 5**: Framework CSS para la creación de interfaces responsivas y modernas.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Características de la Aplicación
+- **Obtención de Datos desde una API**: La aplicación obtiene información sobre cocktails desde la API pública de TheCocktailDB, permitiendo agregar estos datos a la base de datos del sistema.
+- **Agregación de Datos a una Base de Datos**: Los usuarios pueden agregar nuevos cocktails a la base de datos desde la interfaz de usuario.
+- **Eliminación de Cocktails**: Los usuarios pueden eliminar cocktails existentes de la base de datos a través de la interfaz de usuario.
+- **Edición de Cocktails**: Los usuarios pueden editar los detalles de un cocktail existente, como nombre, categoría y más.
+- **Inicio de Sesión**: Los usuarios pueden registrarse y acceder a la plataforma para gestionar sus cocktails de manera segura.
+- **Cierre de Sesión**: Los usuarios pueden cerrar sesión para proteger su cuenta y mantener la seguridad en la plataforma.
 
-## Learning Laravel
+## Instalación
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Requisitos previos:
+Asegúrate de tener instalados los siguientes programas en tu máquina:
+- PHP (versión 8.x o superior)
+- Composer (gestor de dependencias de PHP)
+- SQLite (base de datos)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Pasos para instalar:
+1. Clona el repositorio en tu máquina:
+   ```bash
+   git clone https://github.com/usuario/cocktail-web-app.git
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Navega al directorio del proyecto:
+   ```bash
+   cd cocktail-web-app
+   ```
 
-## Laravel Sponsors
+3. Instala las dependencias de Laravel usando Composer:
+   ```bash
+   composer install
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+4. Copia el archivo de configuración `.env`:
+   ```bash
+   cp .env.example .env
+   ```
 
-### Premium Partners
+5. Genera la clave de la aplicación:
+   ```bash
+   php artisan key:generate
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+6. Configura la base de datos SQLite editando el archivo `.env`:
+   ```plaintext
+   DB_CONNECTION=sqlite
+   DB_DATABASE=/ruta/a/tu/base_de_datos.sqlite
+   ```
 
-## Contributing
+7. Ejecuta las migraciones de la base de datos:
+   ```bash
+   php artisan migrate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+8. Inicia el servidor local:
+   ```bash
+   php artisan serve
+   ```
 
-## Code of Conduct
+Accede a la aplicación en [http://localhost:8000](http://localhost:8000).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Ejecución
 
-## Security Vulnerabilities
+Una vez completados los pasos de instalación, puedes acceder a la aplicación a través de tu navegador en la URL [http://localhost:8000](http://localhost:8000). La aplicación te permitirá interactuar con la base de datos de cocktails, desde agregar nuevos cocktails hasta editar o eliminar los existentes.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. En la página principal, puedes ver una lista de los cocktails existentes.
+2. Usando la barra de navegación, puedes acceder a las opciones de agregar un cocktail o iniciar sesión.
+3. Al iniciar sesión, tendrás acceso a funciones adicionales como la edición y eliminación de cocktails.
 
-## License
+## Capturas de Pantalla
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+A continuación se muestran algunas capturas de pantalla de la aplicación:
+
+1. **Pantalla de inicio de sesión**
+   ![Login Screen](./screenshots/login.png)
+
+2. **Vista de la lista de cocktails**
+   ![Cocktails List](./screenshots/cocktails_list.png)
+
+3. **Formulario para agregar un nuevo cocktail**
+   ![Add Cocktail](./screenshots/add_cocktail.png)
+
+4. **Modal de confirmación para eliminar un cocktail**
+   ![Delete Confirmation](./screenshots/delete_confirmation.png)
