@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 use App\Models\Cocktail;
@@ -81,13 +82,20 @@ class CocktailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        Cocktail::findOrFail($id)->delete();
+        $result = Cocktail::find($id)->delete();
 
-        return json_encode([
-            'status'=> 'success',
-            'message'=> 'The change was successfully removed.'
-        ]);
+        if ($result) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'The specified resource was successfully removed'
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'The specified was not removed'
+            ]);
+        }
     }
 }
