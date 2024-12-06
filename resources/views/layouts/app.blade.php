@@ -7,6 +7,7 @@
     <title>@yield('title', 'Mi Aplicación')</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <style>
         footer {
             position: relative;
@@ -30,10 +31,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/about') }}">Acerca de</a>
+                        <a class="nav-link" href="{{ url('/cocktails-api') }}">Nuevos cocktails</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/contact') }}">Contacto</a>
+                        <a class="nav-link" href="{{ url('/cocktails') }}">Cocktails existentes</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
