@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cocktails List</title>
-
-    <!-- Estilos de DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-
+@section('title', 'Cocktails existentes')
     <!-- Estilos para los botones -->
     <style>
         .action-btn {
@@ -31,7 +23,7 @@
     </style>
 </head>
 
-<body>
+@section('content')
     <h1>Lista de Cocktails</h1>
     <table id="cocktailsTable" class="display">
         <thead>
@@ -132,6 +124,4 @@
             }
         }
     </script>
-</body>
-
-</html>
+@endsection
