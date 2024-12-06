@@ -90,13 +90,13 @@ A continuación se muestran algunas capturas de pantalla de la aplicación:
    ![Inicio](./docs/01-inicio.png)
 
 2. **Pantalla de inicio de sesión**
-   ![Login Screen](./screenshots/login.png)
+   ![Login Screen](./docs/02-login.png)
 
-3. **Vista de la lista de cocktails**
-   ![Cocktails List](./screenshots/cocktails_list.png)
+3. **Vista de la lista de cocktails desde la API**
+   ![Cocktails List](./docs/cocktails.png)
 
-4. **Formulario para agregar un nuevo cocktail**
-   ![Add Cocktail](./screenshots/add_cocktail.png)
+4. **Tabla de cocktails existentes**
+   ![Add Cocktail](./docs/04-cocktails-existentes.png)
 
 5. **Modal de confirmación para eliminar un cocktail**
-   ![Delete Confirmation](./screenshots/delete_confirmation.png)
+   ![Delete Confirmation](./docs/05-eliminacion-cocktails.png)
