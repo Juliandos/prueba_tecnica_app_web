@@ -56,7 +56,7 @@
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">Registro</a>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Registro</a>
                     </li>
                     @endauth
                 </ul>
@@ -74,8 +74,71 @@
         <p class="mb-0">© 2024 Mi Aplicación. Todos los derechos reservados.</p>
     </footer>
 
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div id="registerError" class="text-danger"></div>
+                        <button type="submit" class="btn btn-primary w-100">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#registerForm').on('submit', function(e) {
+                e.preventDefault(); // Prevenir el envío del formulario tradicional
+
+                const formData = {
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    password: $('#password').val(),
+                    _token: $('input[name="_token"]').val() // CSRF token
+                };
+
+                $.ajax({
+                    url: '{{ route('register') }}', // Ruta al controlador de registro
+                    method: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        alert('Registro exitoso. Ahora puedes iniciar sesión.');
+                        $('#registerModal').modal('hide');
+                        $('#registerForm')[0].reset(); // Reiniciar el formulario
+                    },
+                    error: function(xhr) {
+                        const errors = xhr.responseJSON.errors;
+                        let errorMessages = '';
+                        for (let key in errors) {
+                            errorMessages += errors[key] + '<br>';
+                        }
+                        $('#registerError').html(errorMessages);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
