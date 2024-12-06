@@ -68,7 +68,7 @@
                     <button class="action-btn edit-btn" onclick="editCocktail({{ $cocktail->id }})" title="Editar">
                         ✏️
                     </button>
-                    <button class="action-btn delete-btn" onclick="deleteCocktail({{ $cocktail->id }})" title="Eliminar">
+                    <button class="action-btn delete-btn" onclick="deleteCocktail({{ $cocktail->id }}, this)" title="Eliminar">
                         🗑️
                     </button>
                 </td>
@@ -81,8 +81,9 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
+        let cocktailsTable;
         $(document).ready(function() {
-            $('#cocktailsTable').DataTable({
+            cockTailsTable = $('#cocktailsTable').DataTable({
                 pageLength: 10,
                 language: {
                     lengthMenu: "Mostrar _MENU_ registros por página",
@@ -109,20 +110,20 @@
         }
 
         // Función para manejar la eliminación de un cóctel
-        function deleteCocktail(id) {
+        function deleteCocktail(id, button) {
             if (confirm('¿Estás seguro de que deseas eliminar este cóctel?')) {
                 fetch(`/cocktails/${id}`, {
                         method: 'DELETE',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        }
+                        
                     })
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('No se pudo eliminar el cóctel.');
                         }
                         alert('Cóctel eliminado exitosamente.');
-                        location.reload(); // Recargar la página para actualizar la tabla
+                        
+                        const rowIndex = cockTailsTable.row($(button).closest('tr')).index();
+                        cockTailsTable.row(rowIndex).remove().draw();
                     })
                     .catch(error => {
                         console.error('Error:', error);
