@@ -63,7 +63,7 @@ Route::post('cocktails', function (Request $request) {
         'nombre' => $request->input(key: 'nombre'),
         'categoria' => $request->input(key: 'categoria'),
         'alcoholica' => $request->input('alcoholica'),
-        'ruta_imagen' => $request->input('imagen'),
+        'ruta_imagen' => $request->input('ruta_imagen'),
         'vaso' => $request->input('vaso'),
         'instrucciones' => $request->input('instrucciones')
     ]);

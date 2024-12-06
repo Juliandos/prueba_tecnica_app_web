@@ -42,19 +42,19 @@
         </thead>
         <tbody>
             @foreach ($cocktails as $cocktail)
-                <tr>
-                    <td>{{ $cocktail['id'] }}</td>
-                    <td>{{ $cocktail['nombre'] }}</td>
-                    <td>{{ $cocktail['categoria'] }}</td>
-                    <td>{{ $cocktail['alcoholica'] }}</td>
-                    <td>{{ $cocktail['vaso'] }}</td>
-                    <td>{{ $cocktail['instrucciones'] }}</td>
-                    <td>
-                        <button class="save-btn" onclick="saveCocktail({{ json_encode($cocktail) }})">
-                            💾 Save
-                        </button>
-                    </td>
-                </tr>
+            <tr>
+                <td>{{ $cocktail['id'] }}</td>
+                <td>{{ $cocktail['nombre'] }}</td>
+                <td>{{ $cocktail['categoria'] }}</td>
+                <td>{{ $cocktail['alcoholica'] }}</td>
+                <td>{{ $cocktail['vaso'] }}</td>
+                <td>{{ $cocktail['instrucciones'] }}</td>
+                <td>
+                    <button class="save-btn" onclick="saveCocktail({{ json_encode($cocktail) }}, this)">
+                        💾 Save
+                    </button>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
@@ -63,8 +63,10 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#cocktailsTable').DataTable({
+        let cockTailsTable;
+
+        $(document).ready(function() {
+            cockTailsTable = $('#cocktailsTable').DataTable({
                 pageLength: 5,
                 language: {
                     lengthMenu: "Mostrar _MENU_ registros por página",
@@ -83,7 +85,7 @@
             });
         });
 
-        function saveCocktail(cocktail) {
+        function saveCocktail(cocktail, button) {
             // Mostrar mensaje en consola
             console.log('Guardando cóctel:', cocktail);
 
@@ -100,13 +102,13 @@
 
             // Hacer solicitud POST al servidor
             fetch('/cocktails', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-                body: JSON.stringify(cocktail)
-            })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify(cocktail)
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error al guardar el cóctel.');
@@ -114,15 +116,14 @@
                     return response.json();
                 })
                 .then(data => {
-                    alert(`El cóctel "${data.cocktail.nombre}" se ha guardado exitosamente.`);
-                    console.log('Respuesta del servidor:', data);
+                    const rowIndex = cockTailsTable.row($(button).closest('tr')).index();
+                    cockTailsTable.row(rowIndex).remove().draw();
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     alert('No se pudo guardar el cóctel. Intenta de nuevo.');
                 });
         }
-
     </script>
 </body>
 
