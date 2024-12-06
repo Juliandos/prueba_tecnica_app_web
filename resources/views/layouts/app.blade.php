@@ -117,12 +117,12 @@
                     <form id="loginForm">
                         @csrf <!-- Token CSRF -->
                         <div class="mb-3">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <label for="emailLogin" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="emailLogin" name="emailLogin" required>
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <label for="passwordLogin" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="passwordLogin" name="passwordLogin" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
                     </form>
@@ -148,8 +148,7 @@
                 };
 
                 $.ajax({
-                    url: '{{ route('
-                    register ') }}', // Ruta al controlador de registro
+                    url: '{{ route('register') }}', // Ruta al controlador de registro
                     method: 'POST',
                     data: formData,
                     success: function(response) {
@@ -173,15 +172,14 @@
                 e.preventDefault(); // Evita el envío tradicional del formulario
 
                 // Obtén los datos del formulario
-                const email = $('#email').val();
-                const password = $('#password').val();
+                const email = $('#emailLogin').val();
+                const password = $('#passwordLogin').val();
 
                 // Enviar datos al servidor usando AJAX
                 $.ajax({
                     url: '{{ route("login") }}', // Ruta de login definida en Laravel
                     method: 'POST',
                     data: {
-                        _token: '{{ csrf_token() }}',
                         email: email,
                         password: password
                     },
