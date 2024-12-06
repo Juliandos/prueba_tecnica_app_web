@@ -116,7 +116,7 @@
 <!-- Scripts necesarios -->
 <script>
     let cocktailsTable;
-    $(document).ready(function () {
+    $(document).ready(function() {
         cocktailsTable = $('#cocktailsTable').DataTable({
             pageLength: 10,
             language: {
@@ -135,7 +135,7 @@
             }
         });
 
-        $('#editForm').on('submit', function (e) {
+        $('#editForm').on('submit', function(e) {
             e.preventDefault();
             const formData = $(this).serialize();
             const actionUrl = `/cocktails/${$('#editForm').data('id')}`;
@@ -144,15 +144,15 @@
                 url: actionUrl,
                 type: 'PUT',
                 data: formData,
-                success: function (response) {
+                success: function(response) {
                     Swal.fire({
                         title: 'Mensaje',
                         text: 'El cocktail se actualizó exitosamente',
                         icon: 'success',
                     })
-                    
+
                 },
-                error: function (error) {
+                error: function(error) {
                     console.error('Error al actualizar el cóctel:', error);
                     Swal.fire({
                         title: 'Mensaje',
@@ -177,32 +177,44 @@
     }
 
     function deleteCocktail(id, button) {
-        if (confirm('¿Estás seguro de que deseas eliminar este cóctel?')) {
-            fetch(`/cocktails/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            }).then(response => {
-                if (!response.ok) {
-                    throw new Error('No se pudo eliminar el cóctel.');
-                }
-                
-                Swal.fire({
-                    title: 'Mensaje',
-                    text: 'El cocktail se eliminó correctamente',
-                    icon: 'success',
-                })
-                cocktailsTable.row($(button).closest('tr')).remove().draw();
-            }).catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/cocktails/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error('No se pudo eliminar el cóctel.');
+                    }
+
+                    Swal.fire({
+                        title: 'Mensaje',
+                        text: 'El cocktail se eliminó correctamente',
+                        icon: 'success',
+                    })
+                    cocktailsTable.row($(button).closest('tr')).remove().draw();
+                }).catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
                         title: 'Advertencia',
                         text: 'El cocktail no se pudo eliminar.',
                         icon: 'warning',
                     })
-            });
-        }
+                });
+            }
+        });
+
     }
 </script>
 @endsection
