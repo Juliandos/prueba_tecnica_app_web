@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Cocktail;
+
 class CocktailController extends Controller
 {
     /**
@@ -13,7 +15,9 @@ class CocktailController extends Controller
      */
     public function index()
     {
-        //
+        $cocktails = Cocktail::all();
+
+        return view('cocktails.crud', compact('cocktails'));
     }
 
     /**

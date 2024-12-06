@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\CocktailController;
 use App\Models\Cocktail;
 
 /*
@@ -75,8 +76,4 @@ Route::post('cocktails', function (Request $request) {
     ], 201);
 });
 
-Route::get('/cocktails', function () {
-    $cocktails = Cocktail::all();
-
-    return view('cocktails.crud', compact('cocktails'));
-});
+Route::resource('cocktails', CocktailController::class);
