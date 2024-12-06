@@ -83,6 +83,11 @@ class CocktailController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cocktail::findOrFail($id)->delete();
+
+        return json_encode([
+            'status'=> 'success',
+            'message'=> 'The change was successfully removed.'
+        ]);
     }
 }
