@@ -21,7 +21,7 @@
 
 @section('content')
 <h1>Random Cocktails</h1>
-<table id="cocktailsTable" class="display">
+<table id="cocktailsTable" class="display responsive nowrap">
     <thead>
         <tr>
             <th>ID</th>
@@ -29,7 +29,6 @@
             <th>Category</th>
             <th>Alcoholic</th>
             <th>Glass</th>
-            <th>Instructions</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -41,7 +40,6 @@
             <td>{{ $cocktail['categoria'] }}</td>
             <td>{{ $cocktail['alcoholica'] }}</td>
             <td>{{ $cocktail['vaso'] }}</td>
-            <td>{{ $cocktail['instrucciones'] }}</td>
             <td>
                 <button class="save-btn" onclick="saveCocktail({{ json_encode($cocktail) }}, this)">
                     💾 Save
@@ -58,6 +56,7 @@
 
     $(document).ready(function() {
         cockTailsTable = $('#cocktailsTable').DataTable({
+            responsive: true,
             pageLength: 5,
             language: {
                 lengthMenu: "Mostrar _MENU_ registros por página",

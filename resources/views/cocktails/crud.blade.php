@@ -21,7 +21,7 @@
 
 @section('content')
 <h1>Lista de Cocktails</h1>
-<table id="cocktailsTable" class="display">
+<table id="cocktailsTable" class="display responsive nowrap">
     <thead>
         <tr>
             <th>ID</th>
@@ -30,7 +30,6 @@
             <th>Alcohólica</th>
             <th>Vaso</th>
             <th>Ruta Imagen</th>
-            <th>Instrucciones</th>
             <th>Creado en</th>
             <th>Acciones</th>
         </tr>
@@ -50,7 +49,7 @@
                 Sin imagen
                 @endif
             </td>
-            <td>{{ $cocktail->instrucciones }}</td>
+            
             <td>{{ $cocktail->created_at }}</td>
             <td>
                 <button class="action-btn edit-btn" onclick="openEditModal({{ $cocktail }})" title="Editar">
@@ -118,6 +117,7 @@
     let cocktailsTable;
     $(document).ready(function() {
         cocktailsTable = $('#cocktailsTable').DataTable({
+            responsive: true,
             pageLength: 10,
             language: {
                 lengthMenu: "Mostrar _MENU_ registros por página",
