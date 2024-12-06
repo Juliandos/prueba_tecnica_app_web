@@ -48,32 +48,4 @@ Route::get('/cocktails-api', function () {
     return view('cocktails.api', compact('cocktails'));
 });
 
-Route::post('cocktails', function (Request $request) {
-    // $validated = $request->validate([
-    //     'id' => 'required|integer|unique:cocktail,id',
-    //     'nombre' => 'required|string|max:255',
-    //     'categoria' => 'required|string|max:255',
-    //     'alcoholica' => 'required|boolean',
-    //     'vaso' => 'required|string|max:255',
-    //     'instrucciones' => 'required|string',
-    // ]);
-
-    // Crear un nuevo registro en la base de datos
-    $cocktail = Cocktail::create([
-        'id' => $request->input('id'),
-        'nombre' => $request->input(key: 'nombre'),
-        'categoria' => $request->input(key: 'categoria'),
-        'alcoholica' => $request->input('alcoholica'),
-        'ruta_imagen' => $request->input('ruta_imagen'),
-        'vaso' => $request->input('vaso'),
-        'instrucciones' => $request->input('instrucciones')
-    ]);
-
-    // Retornar una respuesta exitosa
-    return response()->json([
-        'message' => 'Cóctel guardado exitosamente.',
-        'cocktail' => $cocktail,
-    ], 201);
-});
-
 Route::resource('cocktails', CocktailController::class);
