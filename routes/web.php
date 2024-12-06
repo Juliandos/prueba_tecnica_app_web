@@ -74,3 +74,9 @@ Route::post('cocktails', function (Request $request) {
         'cocktail' => $cocktail,
     ], 201);
 });
+
+Route::get('/cocktails', function () {
+    $cocktails = Cocktail::all();
+
+    return view('cocktails.crud', compact('cocktails'));
+});
