@@ -22,16 +22,6 @@ class CocktailController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -67,28 +57,6 @@ class CocktailController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -97,8 +65,43 @@ class CocktailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validar los datos recibidos
+        // $validated = $request->validate([
+        //     'nombre' => 'required|string|max:255',
+        //     'categoria' => 'required|string|max:255',
+        //     'alcoholica' => 'required|boolean',
+        //     'vaso' => 'required|string|max:255',
+        //     'instrucciones' => 'required|string',
+        //     'ruta_imagen' => 'nullable|string|max:255',
+        // ]);
+
+        // Buscar el cóctel por su ID
+        $cocktail = Cocktail::find($id);
+
+        // Verificar si el cóctel existe
+        if (!$cocktail) {
+            return response()->json([
+                'message' => 'Cóctel no encontrado.',
+            ], 404);
+        }
+
+        // Actualizar los datos del cóctel
+        $cocktail->update([
+            'nombre' => $request->input('nombre'),
+            'categoria' => $request->input('categoria'),
+            'alcoholica' => $request->input('alcoholica'),
+            'ruta_imagen' => $request->input('ruta_imagen'),
+            'vaso' => $request->input('vaso'),
+            'instrucciones' => $request->input('instrucciones'),
+        ]);
+
+        // Retornar una respuesta exitosa con los datos actualizados
+        return response()->json([
+            'message' => 'Cóctel actualizado exitosamente.',
+            'cocktail' => $cocktail,
+        ], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
