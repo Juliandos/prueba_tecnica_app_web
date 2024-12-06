@@ -7,6 +7,13 @@
     <title>@yield('title', 'Mi Aplicación')</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        footer {
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -30,7 +37,27 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                    
+                    @auth
+                    <li class="nav-item">
+                        <span class="nav-link">Hola, {{ Auth::user()->name }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Registro</a>
+                    </li>
+                    @endauth
                 </ul>
             </div>
         </div>
@@ -42,7 +69,7 @@
     </div>
 
     <!-- Pie de Página -->
-    <footer class="bg-light text-center py-3 mt-auto">
+    <footer class="bg-light text-center py-3">
         <p class="mb-0">© 2024 Mi Aplicación. Todos los derechos reservados.</p>
     </footer>
 

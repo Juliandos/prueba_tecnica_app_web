@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\CocktailController;
+use App\Http\Controllers\AuthController;
 use App\Models\Cocktail;
 
 /*
@@ -49,3 +50,7 @@ Route::get('/cocktails-api', function () {
 });
 
 Route::resource('cocktails', CocktailController::class);
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
