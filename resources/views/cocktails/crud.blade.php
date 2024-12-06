@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('title', 'Cocktails existentes')
-<!-- Estilos para los botones -->
 <style>
     .action-btn {
         border: none;
@@ -13,12 +12,10 @@
 
     .edit-btn {
         color: #4CAF50;
-        /* Verde para editar */
     }
 
     .delete-btn {
         color: #F44336;
-        /* Rojo para eliminar */
     }
 </style>
 
@@ -72,14 +69,13 @@
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="editForm" method="POST">
-                @csrf
-                @method('PUT')
+            <form id="editForm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Editar Cóctel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    @csrf
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -123,7 +119,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     let cocktailsTable;
-    $(document).ready(function() {
+    $(document).ready(function () {
         cocktailsTable = $('#cocktailsTable').DataTable({
             pageLength: 10,
             language: {
@@ -141,11 +137,32 @@
                 }
             }
         });
+
+        // Evento submit del formulario con AJAX
+        $('#editForm').on('submit', function (e) {
+            e.preventDefault(); // Prevenir el envío tradicional del formulario
+            const formData = $(this).serialize(); // Serializar los datos del formulario
+            const actionUrl = `/cocktails/${$('#editForm').data('id')}`; // Obtener URL dinámica
+
+            $.ajax({
+                url: actionUrl,
+                type: 'PUT',
+                data: formData,
+                success: function (response) {
+                    alert('Cóctel actualizado exitosamente.');
+                    
+                },
+                error: function (error) {
+                    console.error('Error al actualizar el cóctel:', error);
+                    alert('Ocurrió un error al actualizar el cóctel.');
+                }
+            });
+        });
     });
 
     function openEditModal(cocktail) {
         // Rellenar los campos del formulario con los datos del cóctel
-        $('#editForm').attr('action', `/cocktails/${cocktail.id}`);
+        $('#editForm').data('id', cocktail.id); // Guardar el ID del cóctel en el formulario
         $('#nombre').val(cocktail.nombre);
         $('#categoria').val(cocktail.categoria);
         $('#alcoholica').val(cocktail.alcoholica ? '1' : '0');
